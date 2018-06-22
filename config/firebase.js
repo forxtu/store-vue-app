@@ -1,8 +1,12 @@
-export default {
-    apiKey: "AIzaSyCxm3EIum62b_TWbb3zQ8WTUUqqCLstnTI",
-    authDomain: "vueapp-8d30e.firebaseapp.com",
-    databaseURL: "https://vueapp-8d30e.firebaseio.com",
-    projectId: "vueapp-8d30e",
-    storageBucket: "vueapp-8d30e.appspot.com",
-    messagingSenderId: "985598142848"
-  };
+import Firebase from 'firebase'
+
+const firebaseApp = Firebase.initializeApp({
+    apiKey: "AIzaSyDGoX-TmXvAowHc2MFEk4z5eBKaHzwCKZs",
+    authDomain: "store-vue-app.firebaseapp.com",
+    databaseURL: "https://store-vue-app.firebaseio.com",
+    projectId: "store-vue-app",
+    storageBucket: "",
+    messagingSenderId: "288894765022"
+});
+
+export const db = firebaseApp.database()
