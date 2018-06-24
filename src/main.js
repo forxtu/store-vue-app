@@ -3,6 +3,8 @@ import VueFire from 'vuefire'
 
 import App from './AppDark'
 import router from './router'
+import { store } from './store/index'
+
 import {
     Vuetify,
     VApp,
@@ -48,6 +50,7 @@ Vue.config.productionTip = false
 new Vue({
     el: '#app',
     router,
+    store,
     components: { App },
     template: '<App/>'
 })

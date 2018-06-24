@@ -10,3 +10,7 @@ const firebaseApp = Firebase.initializeApp({
 });
 
 export const db = firebaseApp.database()
+
+export const productsRef = db.ref('products')
+export const attributesRef = db.ref('attributes')
+export const attributesIdValueRef = db.ref('attributesIdValue')
