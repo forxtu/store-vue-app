@@ -1,12 +1,17 @@
 export default [{
         icon: 'home',
-        title: 'Główna',
+        title: 'Shop',
         target: '/'
     },
     {
         icon: 'assignment',
         title: 'Cart',
         target: 'cart'
+    },
+    {
+        icon: 'assignment',
+        title: 'Wishlist',
+        target: 'wishlist'
     },
     {
         icon: 'assignment',
