@@ -1,15 +1,13 @@
 <template>
-    <!-- <div v-for="product of getProducts">
-        <img :src="product.image" alt="product" class="mb-5">
-    </div> -->
-    <!-- {{getProducts}} -->
-    <!-- {{getAttributes}} -->
-    <!-- {{getAttributesIdValue}} -->
     <v-layout layout row wrap>
-        <v-flex class="product__wrapper" flex xs12 sm6 md3 v-for="product of getProducts">
+        <v-flex class="product__wrapper" 
+                flex xs12 sm6 md6 lg6 
+                v-for="product of products"
+                :key="product.name"
+            >
             <div class="product">
                 <div class="product__image">
-                    <img :src="'../../../static/products/'+product.image" alt="">
+                    <img :src="`../../../static/products/${product.image}`" alt="">
                 </div>
                 <div class="product__head">
                     <h3 class="headline mb-0">{{product.name}}</h3>
@@ -17,14 +15,17 @@
                 </div>
                 <div class="product__attributes">
                     <div class="product__attributes">
-                        <p class="product__attributes-type" v-for="attribute of getAttributes">{{attribute.name}}</p>
-                        <p class="product__attributes-text" v-for="(attributeIdValue, index) of getAttributesIdValue">
-                            <!-- {{index}} -->
-                            <!-- <span v-for="attribute of getAttributes"> -->
-                                <!-- {{attribute}} -->
-                                <span>{{attributeIdValue}}</span>
-                            <!-- </span> -->
-                        </p>
+                        <div>
+                            <p class="product__attributes-type" 
+                                v-for="attribute of getAttributes"
+                                :key="attribute.id"
+                            >
+                                {{attribute.name}}
+                            </p>
+                        </div>
+                        <div class="product__attributes-text">
+                            <product-attributes :product="product"></product-attributes>
+                        </div>
                     </div>
                 </div>
                 <div class="product__controls">
@@ -37,52 +38,46 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
-// import { db } from "../../../config/firebase"
 import { productsRef, attributesRef, attributesIdValueRef } from '../../../../config/firebase'
+import ProductAttributes from './ProductAttributes'
 
 export default {
     name: 'ProductsList',
+    components: {
+        ProductAttributes
+    },
     data () {
         return {}
     },
     computed: {
-        ...mapGetters([
-            'getProducts',
+        ...mapState('products', {
+            products: state => state.products
+        }),
+        ...mapGetters('products', [
             'getAttributes',
-            'getAttributesIdValue'
+            'getAttributesIdValue',
+            'getValues'
         ])
     },
     methods: {
-        // ...mapMutations([
-        //     'addToCart',
-        //     'removeFromCart',
-        //     'addToWishlist',
-        //     'removeFromWishlist',
-        // ]),
-        ...mapActions([
-            'addToCart',
-            'removeFromCart',
-            'addToWishlist',
-            'removeFromWishlist',
+        ...mapActions('products', [
             'setProductsRef',
             'setAttributesRef',
             'setAttributesIdValueRef'
         ]),
-        // getAttributesIdValueArr () {
-        //     this.getAttributesIdValue.map(val => {
-        //         console.log(val);
-        //         // let value = JSON.parse(JSON.stringify(val))
-        //         // console.log({value})
-        //     })
-        // }
+        addToCart(product) {
+            this.$store.dispatch('cart/addToCart', product)
+        },
+        addToWishlist(product) {
+            this.$store.dispatch('wishlist/addToWishlist', product)
+        }
     },
-    mounted () {
+    created () {
         this.setProductsRef(productsRef)
         this.setAttributesRef(attributesRef)
         this.setAttributesIdValueRef(attributesIdValueRef)
-        // this.getAttributesIdValueArr()
     }
 }
 </script>
@@ -96,5 +91,11 @@ export default {
 }
 .product__wrapper {
     padding: 4px;
+}
+.product__attributes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
 }
 </style>

@@ -1,23 +1,21 @@
 <template>
     <v-layout wrap row class="full-width">
         <div class="wishlist">
-            <div class="cart__count">
-                <a href="">
-                    Wishlist ({{ this.$store.state.wishlistCount }})
-                </a>
-                <div v-if="this.$store.state.wishlist.length > 0" class="cart__total-price">
-                    <h4>Total price: <strong>{{ totalPriceWishlist }}</strong></h4>
+            <div class="wishlist__count">
+                <router-link to="/wishlist">
+                    Wishlist ({{ wishlistCount }})
+                </router-link>
+                <div v-if="wishlist.length > 0" class="wishlist__total-price">
+                    <h4>Total price: <strong>{{ getTotalPriceWishlist(wishlist).toFixed(2) }}</strong></h4>
                 </div>
             </div>
         </div>
-        <div v-if="this.$store.state.wishlist.length > 0" class="cart__products">
-            <div class="cart__product" 
-                v-for="item in this.$store.state.wishlist"
+        <div v-if="wishlist.length > 0" class="wishlist__products">
+            <div class="wishlist__product" 
+                    v-for="item in wishlist"
+                    :key="item.name"
                 >
-                <!-- <div class="product__image">
-                    <img :src="'../../../static/products/'+product.image" alt="">
-                </div> -->
-                <span class="cart__remove"
+                <span class="wishlist__remove"
                     title="Remove from wishlist"
                     @click.prevent="removeFromWishlist(item)"
                 >
@@ -25,11 +23,11 @@
                 </span>
                 <div class="product__head">
                     <h3 class="headline mb-0">{{item.name}}</h3>
-                    <p class="cart__product-desc">Quantity: <strong>{{ item.addedQuantityWishlist }}</strong></p>
-                    <p class="cart__product-desc">Price for one item: {{item.price.value}}</p>
+                    <p class="wishlist__product-desc">Quantity: <strong>{{ item.addedQuantityWishlist }}</strong></p>
+                    <p class="wishlist__product-desc">Price for one item: {{item.price.value}}</p>
                     <h4>
                         Total price for product: 
-                        <span class="cart__product-total">{{ item.totalPriceOfItemWishlist.toFixed(2) }}</span>
+                        <span class="wishlist__product-total">{{ item.totalPriceOfItemWishlist.toFixed(2) }}</span>
                     </h4>
                 </div>
                 <div class="product__controls">
@@ -44,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
     name: 'Wishlist',
@@ -52,24 +50,22 @@ export default {
         return {}
     },
     methods: {
-        ...mapMutations([
-            'addToCart'
+        ...mapActions('wishlist', [
+            'removeFromWishlist'
         ]),
-        ...mapActions([
-            'removeFromWishlist',
-            'moveToCart',
-        ])
+        moveToCart(product) {
+            this.$store.dispatch('cart/moveToCart', product)
+            this.$store.dispatch('wishlist/removeFromWishlist', product)
+        }
     },
     computed: {
-        totalPriceWishlist() {
-            let total = 0;
-
-            for (let item of this.$store.state.wishlist) {
-                total += item.totalPriceOfItemWishlist;
-            }
-
-            return total.toFixed(2);
-        }
+        ...mapState('wishlist', [
+           'wishlist',
+           'wishlistCount' 
+        ]),
+        ...mapGetters('wishlist', [
+            'getTotalPriceWishlist'
+        ])
     }
 }
 </script>
@@ -82,12 +78,12 @@ export default {
     width: 100%;
     margin: 4px;
 }
-.cart__products {
+.wishlist__products {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
-.cart__product {
+.wishlist__product {
     max-width: 30%;
     margin: 4px;
     padding: 20px;
@@ -95,13 +91,13 @@ export default {
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     border-radius: 2px;
 }
-.cart__product-desc {
+.wishlist__product-desc {
     margin-bottom: 0;
 }
-.cart__product-total {
+.wishlist__product-total {
     color: lightgreen;
 }
-.cart__remove {
+.wishlist__remove {
     color: lightcoral;
     cursor: pointer;
     float: right;
