@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// import { state } from './shop/state'
-import { getters } from './shop/getters'
+import { state } from './shop/state'
 import { mutations } from './shop/mutations'
-// import { actions } from './shop/actions'
 
 import products from './shop/modules/products'
 import wishlist from './shop/modules/wishlist'
@@ -18,8 +16,6 @@ export const store = new Vuex.Store({
         cart,
         wishlist
     },
-    // state,
-    getters,
+    state,
     mutations
-    // actions
 })
