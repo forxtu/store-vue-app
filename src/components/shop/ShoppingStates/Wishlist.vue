@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'Wishlist',
@@ -53,7 +53,7 @@ export default {
         ...mapActions('wishlist', [
             'removeFromWishlist'
         ]),
-        moveToCart(product) {
+        moveToCart (product) {
             this.$store.dispatch('cart/moveToCart', product)
             this.$store.dispatch('wishlist/removeFromWishlist', product)
         }
@@ -61,7 +61,7 @@ export default {
     computed: {
         ...mapState('wishlist', [
            'wishlist',
-           'wishlistCount' 
+           'wishlistCount'
         ]),
         ...mapGetters('wishlist', [
             'getTotalPriceWishlist'

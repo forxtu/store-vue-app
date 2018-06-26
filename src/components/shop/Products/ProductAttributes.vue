@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'ProductAttributes',
@@ -28,19 +28,19 @@ export default {
     computed: {
         ...mapGetters('products', [
             'getAttributes',
-            'getAttributesIdValue',
+            'getAttributesIdValue'
             // 'getValues',
             // 'getNumbers',
             // 'getResult'
         ]),
         getValues () {
-            var totalArr = [];
-                this.getAttributesIdValue.map((value, idIndex) => {
-                    this.getAttributes.map((item, attrIndex) => {
-                        if (item.id == idIndex) {
-                            var arr = [];
-                            value.split(/\|/).forEach(function (val, splittedIndex) {
-                                arr.push(val)
+            let totalArr = []
+                this.getAttributesIdValue.map((value, valueIndex) => {
+                    this.getAttributes.map((attr, attrIndex) => {
+                        if (attr.id === valueIndex) {
+                            let arr = []
+                            value.split(/\|/).forEach(function (splittedValue, splittedIndex) {
+                                arr.push(splittedValue)
                                 return arr
                             })
                             totalArr.push(arr)
@@ -50,29 +50,29 @@ export default {
             return totalArr
         },
         getNumbers () {
-            let totalArrAttr = [];
-            this.product.attributes.map((item, index) => {
-                let arr = [];
-                item.split(/\|/).forEach(function (val, splittedIndex) {
-                    arr.push(parseInt(val))
+            let totalArrAttr = []
+            this.product.attributes.map(number => {
+                let arr = []
+                number.split(/\|/).forEach(function (splittedNumber) {
+                    arr.push(parseInt(splittedNumber))
                     return arr
                 })
                 totalArrAttr.push(arr)
-            });
+            })
             return totalArrAttr
         },
         getResult () {
             let finalRes = []
-            this.getNumbers.map((number, indexNumber) => {
-                let newRes = [];
-                this.getValues.filter((item, index) => {
-                    if(index == indexNumber) {
-                        let middleRes = [];
-                        item.map((itemMap, itemMapIndex) => {
+            this.getNumbers.map((number, numberIndex) => {
+                let newRes = []
+                this.getValues.filter((value, valueIndex) => {
+                    if(valueIndex == numberIndex) {
+                        value.map((valueItem, valueItemIndex) => {
                             number.map((numberItem) => {
-                                if(numberItem == itemMapIndex + 1)
-                                newRes.push(itemMap);
-                                return newRes
+                                if (numberItem === valueItemIndex + 1) {
+                                    newRes.push(valueItem)
+                                    return newRes
+                                }
                             })
                         })
                     }

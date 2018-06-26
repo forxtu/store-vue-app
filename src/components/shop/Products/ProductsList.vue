@@ -67,10 +67,10 @@ export default {
             'setAttributesRef',
             'setAttributesIdValueRef'
         ]),
-        addToCart(product) {
+        addToCart (product) {
             this.$store.dispatch('cart/addToCart', product)
         },
-        addToWishlist(product) {
+        addToWishlist (product) {
             this.$store.dispatch('wishlist/addToWishlist', product)
         }
     },

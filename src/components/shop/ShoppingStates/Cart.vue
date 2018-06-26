@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'Cart',
@@ -49,7 +49,7 @@ export default {
     computed: {
         ...mapState('cart', {
             cart: state => state.cart,
-            cartCount: state => state.cartCount,
+            cartCount: state => state.cartCount
         }),
         ...mapGetters('cart', [
             'getTotalPriceCart'

@@ -17,11 +17,11 @@ const getters = {
     getAttributes: state => state.attributes,
     getAttributesIdValue: state => state.attributesIdValue['.value']
     // getValues (state, getters) {
-    //     // var totalArr = []
+    //     let totalArr = []
     //     getters.getAttributesIdValue.map((value, idIndex) => {
     //         getters.getAttributes.map((item, attrIndex) => {
     //             if (item.id === idIndex) {
-    //                 // var arr = []
+    //                 // let arr = []
     //                 value.split(/\|/).forEach(function (val, splittedIndex) {
     //                     state.midValuesArr.push(val)
     //                     return state.midValuesArr
@@ -49,9 +49,9 @@ const getters = {
     // },
     // getResult (state, getters) {
     //     // let finalRes = []
-    //     this.getNumbers.map((number, indexNumber) => {
+    //     getters.getNumbers.map((number, indexNumber) => {
     //         // let newRes = [];
-    //         this.getValues.filter((item, index) => {
+    //         getters.getValues.filter((item, index) => {
     //             if (index === indexNumber) {
     //                 // let middleRes = [];
     //                 item.map((itemMap, itemMapIndex) => {
