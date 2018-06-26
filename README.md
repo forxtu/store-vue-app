@@ -1,21 +1,19 @@
+**Additional packages**
+
+1. vuex
+2. vuexfire
+
+**Reproduction**
+
+1. git clone https://github.com/forxtu/store-vue-app.git
+2. cd store-vue-app
+3. npm install / yarn install
+4. npm start / yarn start
+
 **Opis**
 
 Repozytorium startowe aplikacji - Bold FE Hackathon#1. Aplikacja wykorzystuje vue + vuetify. Docelowo aplikacja ma zostać zrealizowana przy pomocy 
 zdalnej "bazy danych" firebase przy wykorzystaniu VueFire.
-
-
-**Instalacja**
-
-1. Zainstaluj środowisko uruchomieniowe JavaScript **Node.js** + npm
-2. Zainstaluj vue command line interface: _npm install --global vue-cli_
-3. Zainstaluj zależności które wymagane są przez projekt: _npm install_ 
-
-**Uruchomienie**
-
-Po poprawnej instalacji wszystkich potrzebnych modułów uruchomienie środowiska deweloperskiego (serwer + livereload) powinno być możliwe poprzez 
-użycie: _npm run dev_
-
-**VUE - przykładowa aplikacja**
 
 1. stworzenie projektu firebase, konfiguracja z vue cli, pobranie danych i wyświetlenie (~1h)
    -założenie projektu w firebase
